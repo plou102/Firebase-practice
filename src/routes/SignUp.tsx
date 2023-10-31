@@ -1,8 +1,20 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
-import styled from "styled-components";
 import { auth } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
+import {
+  Error,
+  Form,
+  Input,
+  Switcher,
+  Title,
+  Wrapper,
+} from "../components/AuthComponents";
+
+// const errors = {
+//   'auth/email-already-in-use': '이미 존재하는 이메일 입니다.'
+// }
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -28,6 +40,8 @@ export default function Signup() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    setError("");
+
     if (isLoading || name === "" || email === "" || password === "") return;
 
     try {
@@ -46,7 +60,9 @@ export default function Signup() {
       navigate("/");
     } catch (e) {
       // setError
-      setError("error!!!");
+      if (e instanceof FirebaseError) {
+        setError(e.message);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -86,46 +102,10 @@ export default function Signup() {
         />
       </Form>
       {error !== "" ? <Error>{error}</Error> : null}
+
+      <Switcher>
+        Already have an account? <Link to="/signin">Sign In &rarr;</Link>
+      </Switcher>
     </Wrapper>
   );
 }
-
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 420px;
-  padding: 50px 0;
-`;
-
-const Title = styled.h1`
-  font-size: 42px;
-`;
-
-const Form = styled.form`
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-`;
-
-const Input = styled.input`
-  padding: 10px 20px;
-  border-radius: 50px;
-  border: none;
-  width: 100%;
-  font-size: 16px;
-  &[type="submit"] {
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-`;
-
-const Error = styled.span`
-  font-weight: 600;
-  color: red;
-`;
