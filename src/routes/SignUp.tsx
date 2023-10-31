@@ -46,6 +46,7 @@ export default function Signup() {
       navigate("/");
     } catch (e) {
       // setError
+      setError("error!!!");
     } finally {
       setIsLoading(false);
     }

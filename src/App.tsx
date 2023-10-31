@@ -3,17 +3,22 @@ import Layout from "./components/Layout";
 import Home from "./routes/Home";
 import Profile from "./routes/Profile";
 import SignIn from "./routes/SignIn";
-import Signup from "./routes/Signup";
+import SignUp from "./routes/SignUp";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { auth } from "./firebase";
+import ProtectedRoute from "./components/Protected-Route";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "",
@@ -31,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <Signup />,
+    element: <SignUp />,
   },
 ]);
 
@@ -49,6 +54,7 @@ const GlobalStyles = createGlobalStyle`
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+
   async function Init() {
     await auth.authStateReady();
     setIsLoading(false);
