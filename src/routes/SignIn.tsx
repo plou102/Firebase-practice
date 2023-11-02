@@ -11,6 +11,7 @@ import {
   Title,
   Wrapper,
 } from "../components/AuthComponents";
+import GithubBtn from "../components/GithubBtn";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -79,6 +80,8 @@ export default function SignIn() {
       <Switcher>
         Don't have an account? <Link to="/signup">Sign Up &rarr;</Link>
       </Switcher>
+
+      <GithubBtn />
     </Wrapper>
   );
 }
