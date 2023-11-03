@@ -2,13 +2,5 @@ import React from "react";
 import { auth } from "../firebase";
 
 export default function Home() {
-  function logOut() {
-    auth.signOut();
-  }
-
-  return (
-    <h1>
-      <button onClick={logOut}>Log Out</button>
-    </h1>
-  );
+  return <h1></h1>;
 }
