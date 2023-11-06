@@ -1,6 +1,13 @@
 import React from "react";
-import { auth } from "../firebase";
+import PostTweetForm from "../components/PostTweetForm";
+import styled from "styled-components";
 
 export default function Home() {
-  return <h1></h1>;
+  return (
+    <Wrapper>
+      <PostTweetForm />
+    </Wrapper>
+  );
 }
+
+const Wrapper = styled.div``;
