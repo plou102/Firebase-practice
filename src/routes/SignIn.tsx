@@ -12,6 +12,7 @@ import {
   Wrapper,
 } from "../components/AuthComponents";
 import GithubBtn from "../components/GithubBtn";
+import { errors } from "../components/ErrorMessage";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -45,9 +46,9 @@ export default function SignIn() {
 
       navigate("/");
     } catch (e) {
-      // setError
       if (e instanceof FirebaseError) {
-        setError(e.message);
+        const code = e.code;
+        setError(errors[code]);
       }
     } finally {
       setIsLoading(false);

@@ -6,10 +6,10 @@ export default function Layout() {
   const navigate = useNavigate();
 
   async function onLogOut() {
-    const ok = confirm("Are you sure you want to log out?");
+    const ok = confirm("로그아웃 하시겠습니까?");
     if (ok) {
       await auth.signOut();
-      navigate("/login");
+      navigate("/signin");
     }
   }
 

@@ -12,10 +12,7 @@ import {
   Wrapper,
 } from "../components/AuthComponents";
 import GithubBtn from "../components/GithubBtn";
-
-// const errors = {
-//   'auth/email-already-in-use': '이미 존재하는 이메일 입니다.'
-// }
+import { errors } from "../components/ErrorMessage";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -60,9 +57,9 @@ export default function Signup() {
 
       navigate("/");
     } catch (e) {
-      // setError
       if (e instanceof FirebaseError) {
-        setError(e.message);
+        const code = e.code;
+        setError(errors[code]);
       }
     } finally {
       setIsLoading(false);
