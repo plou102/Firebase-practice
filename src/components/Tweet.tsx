@@ -10,11 +10,7 @@ export default function Tweet({ username, photo, tweet }: ITweet) {
         <Payload>{tweet}</Payload>
       </Column>
 
-      {photo ? (
-        <Column>
-          <Photo src={photo} />
-        </Column>
-      ) : null}
+      <Column>{photo ? <Photo src={photo} /> : null}</Column>
     </Wrapper>
   );
 }
@@ -43,4 +39,5 @@ const Photo = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 15px;
+  float: right;
 `;
