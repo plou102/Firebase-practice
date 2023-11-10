@@ -60,6 +60,7 @@ export default function PostTweetForm() {
         rows={5}
         maxLength={180}
         onChange={onChange}
+        value={tweet}
         placeholder="What is happening?"
       />
       <AttachFileButton htmlFor="file">

@@ -1,4 +1,3 @@
-import React from "react";
 import { ITweet } from "./Timeline";
 import styled from "styled-components";
 import { auth, db, storage } from "../firebase";
@@ -29,7 +28,7 @@ export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
         <Username>{username}</Username>
         <Payload>{tweet}</Payload>
         {user?.uid === userId ? (
-          <DeleteBtn onClick={onDelete}>Delete</DeleteBtn>
+          <DeleteBtn onClick={onDelete}>delete</DeleteBtn>
         ) : null}
       </Column>
 
@@ -74,5 +73,6 @@ const DeleteBtn = styled.button`
   padding: 5px 10px;
   text-transform: uppercase;
   border-radius: 50px;
+  margin-right: 5px;
   cursor: pointer;
 `;
