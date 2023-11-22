@@ -5,10 +5,12 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import {
   collection,
+  doc,
   getDocs,
   limit,
   orderBy,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { ITweet } from "../components/Timeline";
@@ -76,6 +78,13 @@ export default function Profile() {
       displayName: name,
     });
 
+    tweets.map(async (tweet) => {
+      await updateDoc(doc(db, "tweets", tweet.id), {
+        username: name,
+      });
+    });
+
+    fetchTweets();
     setIsEdit(false);
   }
 
