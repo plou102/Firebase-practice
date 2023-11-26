@@ -1,10 +1,14 @@
 import { ITweet } from "./Timeline";
 import styled from "styled-components";
 import { auth, db, storage } from "../firebase";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
+import { useState } from "react";
 
 export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
+  const [isEdit, setIsEdit] = useState(false);
+  const [Tweet, setTweet] = useState(tweet);
+
   const user = auth.currentUser;
   async function onDelete() {
     const checkMessage = confirm("이 트윗을 삭제하시겠습니까?");
@@ -22,13 +26,37 @@ export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
     }
   }
 
+  function onTweetChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setTweet(e.target.value);
+  }
+
+  async function onEdit() {
+    if (!isEdit) {
+      setIsEdit(true);
+      return;
+    }
+
+    await updateDoc(doc(db, "tweets", id), {
+      tweet: Tweet,
+    });
+
+    setIsEdit(false);
+  }
+
   return (
     <Wrapper>
       <Column>
         <Username>{username}</Username>
-        <Payload>{tweet}</Payload>
+        {isEdit ? (
+          <EditInput type="text" onChange={onTweetChange} />
+        ) : (
+          <Payload>{Tweet}</Payload>
+        )}
         {user?.uid === userId ? (
-          <DeleteBtn onClick={onDelete}>delete</DeleteBtn>
+          <>
+            <DeleteBtn onClick={onDelete}>delete</DeleteBtn>
+            <EditBtn onClick={onEdit}>edit</EditBtn>
+          </>
         ) : null}
       </Column>
 
@@ -75,4 +103,28 @@ const DeleteBtn = styled.button`
   border-radius: 50px;
   margin-right: 5px;
   cursor: pointer;
+`;
+
+const EditBtn = styled.button`
+  background-color: #1d9bf0;
+  color: white;
+  font-weight: 600;
+  border: 0;
+  font-size: 12px;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  cursor: pointer;
+`;
+
+const EditInput = styled.input`
+  display: block;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+  width: 50%;
+  padding: 5px 8px;
+  margin: 10px 0;
 `;
