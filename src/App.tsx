@@ -4,12 +4,13 @@ import Home from "./routes/Home";
 import Profile from "./routes/Profile";
 import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
-import styled, { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/Protected-Route";
+import { ThemeProvider } from "./context/themeProvider";
+import { GlobalStyles } from "./theme/GlobalStyle";
 
 const router = createBrowserRouter([
   {
@@ -40,18 +41,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-const GlobalStyles = createGlobalStyle`
-  ${reset};
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    background-color: black;
-    color: #fff;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-`;
-
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,8 +55,10 @@ function App() {
 
   return (
     <Wrapper>
-      <GlobalStyles />
-      {isLoading ? <Loading /> : <RouterProvider router={router} />}
+      <ThemeProvider>
+        <GlobalStyles />
+        {isLoading ? <Loading /> : <RouterProvider router={router} />}
+      </ThemeProvider>
     </Wrapper>
   );
 }
