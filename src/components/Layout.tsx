@@ -1,9 +1,12 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
+import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "../context/themeProvider";
 
 export default function Layout() {
   const navigate = useNavigate();
+  const [mode, toggleTheme] = useTheme();
 
   async function onLogOut() {
     const ok = confirm("로그아웃 하시겠습니까?");
@@ -65,7 +68,9 @@ export default function Layout() {
             />
           </svg>
         </MenuItem>
+        <ThemeToggle mode={mode as string} toggle={toggleTheme as () => void} />
       </Menu>
+
       <Outlet />
     </Wrapper>
   );
