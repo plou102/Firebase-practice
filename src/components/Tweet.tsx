@@ -120,9 +120,9 @@ const EditBtn = styled.button`
 const EditInput = styled.input`
   display: block;
   background-color: transparent;
-  border: 1px solid white;
+  border: ${(props) => props.theme.border};
   border-radius: 10px;
-  color: white;
+  color: ${(props) => props.theme.textColor};
   font-size: 20px;
   width: 50%;
   padding: 5px 8px;

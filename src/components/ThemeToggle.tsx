@@ -19,7 +19,7 @@ const Wrapper = styled.button`
   width: 50px;
   height: 30px;
   border-radius: 50px;
-  background-color: black;
+  background-color: ${(props) => props.theme.textColor};
   padding: 0;
 `;
 
@@ -27,7 +27,8 @@ const LightBtn = styled.div`
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  background-color: white;
+  border: ${(props) => props.theme.menuBorder};
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const DarkBtn = styled.div`
@@ -35,5 +36,6 @@ const DarkBtn = styled.div`
   width: 25px;
   border-radius: 50px;
   float: right;
-  background-color: white;
+  border: ${(props) => props.theme.menuBorder};
+  background-color: ${(props) => props.theme.bgColor};
 `;
