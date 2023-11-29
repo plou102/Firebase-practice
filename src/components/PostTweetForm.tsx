@@ -87,12 +87,12 @@ const Form = styled.form`
 `;
 
 const TextArea = styled.textarea`
-  border: 2px solid white;
+  border: ${(props) => props.theme.menuBorder};
   padding: 20px;
   border-radius: 20px;
   font-size: 16px;
-  color: white;
-  background-color: black;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
   width: 100%;
   resize: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
