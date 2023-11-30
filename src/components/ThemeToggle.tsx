@@ -10,7 +10,7 @@ export default function ThemeToggle({
 }) {
   return (
     <Wrapper onClick={toggle}>
-      {mode === "light" ? <LightBtn /> : <DarkBtn />}
+      <ToggleBtn className={mode} />
     </Wrapper>
   );
 }
@@ -23,19 +23,20 @@ const Wrapper = styled.button`
   padding: 0;
 `;
 
-const LightBtn = styled.div`
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
-  border: ${(props) => props.theme.menuBorder};
-  background-color: ${(props) => props.theme.bgColor};
-`;
-
-const DarkBtn = styled.div`
+const ToggleBtn = styled.div`
   height: 25px;
   width: 25px;
   border-radius: 50px;
-  float: right;
   border: ${(props) => props.theme.menuBorder};
   background-color: ${(props) => props.theme.bgColor};
+
+  &.light {
+    transform: translateX(0px);
+    transition: transform 0.4s;
+  }
+
+  &.dark {
+    transform: translateX(20px);
+    transition: transform 0.4s;
+  }
 `;
